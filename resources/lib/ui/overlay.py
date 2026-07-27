@@ -32,7 +32,7 @@ _ADDON_PATH = _ADDON.getAddonInfo("path")
 _dialog_lock = False
 
 # Raise to True to allow launching on non-CoreELEC platforms (e.g. for testing).
-_ALLOW_NON_COREELEC = False
+_ALLOW_NON_COREELEC = True
 
 # Runtime nudge: pixels moved per arrow-key press, and the direction each key
 # shifts the overlay by.  Deliberately not persisted – the nudge lives on the
@@ -119,7 +119,7 @@ def _preflight(home, player, toggle_log: str) -> bool:
             _notify_error(32017)
             return False
 
-        if major_version < 22:
+        if major_version < 21:
             _notify_error(32016)
             return False
 
