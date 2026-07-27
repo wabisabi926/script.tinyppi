@@ -5,17 +5,6 @@ A CoreELEC addon that displays detailed playback information in a custom overlay
 ---
 
 ## Screenshots
-<p align="center">
-<img width="1200" alt="VS10-Dialog" src="https://github.com/user-attachments/assets/6e3d9687-f6b6-4724-a346-e5ffb9a4c3dc" />
-</p>
-
-<p align="center">
-<img width="1200" alt="VS10-Dialog" src="https://github.com/user-attachments/assets/de617104-cf29-4ead-9c8a-a0fb75ce5b94" />
-</p>
-
-<p align="center">
-<img width="1200" alt="VS10-Dialog" src="https://github.com/user-attachments/assets/d0a005fb-62bf-4277-93ee-4358f61cb172" />
-</p>
 
 ---
 
@@ -174,57 +163,20 @@ simply omit the image.
 
 ## Advanced Launch Arguments
 
-TinyPPI supports additional arguments to open specific modes or apply VS10 output modes directly — without opening the overlay or the dialog first.
+### Custom color
 
-### Open the VS10 mode selection dialog
-
-```
-RunScript(script.tinyppi,dialog)
-```
-
-Opens the VS10 mode selection dialog instead of the main TinyPPI overlay.
-
-### Apply a VS10 output mode directly
-
-Use `run_mode` followed by the mode name to switch the VS10 output mode immediately. This is useful for keymap shortcuts or automation from other addons.
+Apply a custom color:
 
 ```
-RunScript(script.tinyppi,run_mode,sdr8)
-RunScript(script.tinyppi,run_mode,sdr10)
-RunScript(script.tinyppi,run_mode,hdr10)
-RunScript(script.tinyppi,run_mode,dv)
-RunScript(script.tinyppi,run_mode,original_sdr)
-RunScript(script.tinyppi,run_mode,original_hdr)
-RunScript(script.tinyppi,run_mode,original_dv)
+RunScript(script.tinyppi,custom_color,<color_id>)
 ```
 
-| Mode | Description |
-|------|-------------|
-| `original_sdr` | Pass through SDR content unchanged |
-| `original_hdr` | Pass through HDR10 content unchanged |
-| `original_dv` | Pass through Dolby Vision content unchanged |
-| `hdr10` | Convert to HDR10 output |
-| `dv` | Convert to Dolby Vision output |
-| `sdr8` | Convert to SDR 8-bit output |
-| `sdr10` | Convert to SDR 10-bit output |
+### Splash screen
 
-#### Example: keymap shortcut for a direct mode switch
+Show the splash screen:
 
-```xml
-<keymap>
-  <global>
-    <keyboard>
-      <xxxxx>RunScript(script.tinyppi,run_mode,hdr10)</xxxxx>
-    </keyboard>
-  </global>
-</keymap>
 ```
-
-#### Example: trigger from another addon (Python)
-
-```python
-import xbmc
-xbmc.executebuiltin('RunScript(script.tinyppi,run_mode,dv)')
+RunScript(script.tinyppi,splash)
 ```
 
 ---

@@ -23,7 +23,7 @@ import xbmcgui
 import xbmcvfs
 from core.images import display_texture
 from core.maps import AUDIO_LOGO_MAP, HDR_LOGO_MAP
-from core.utils import PROP_ACTIVE, PROP_DIALOG_MODE, PROP_RUNNING, info
+from core.utils import PROP_ACTIVE, PROP_RUNNING, info
 from ui.theme import apply_theme
 
 _ADDON      = xbmcaddon.Addon()
@@ -121,16 +121,34 @@ _BASE_SCALE = 0.95
 
 def _amlogic_hdr_token() -> str:
     """Classify the Amlogic output mode (``amlogic.eoft_gamut``) into an
-    ``HDR_LOGO_MAP`` key (``''`` for SDR / unknown)."""
-    parts = info("Player.Process(amlogic.eoft_gamut)").split()
-    mode = parts[0].upper() if parts else ""
-    if "DV" in mode or "DOLBY" in mode:
+    ``HDR_LOGO_MAP`` key (``''`` for SDR / unknown). Uses Amlogic prop on 
+    CoreELEC, fallback to VideoPlayer.HDRType otherwise."""
+    try:
+        from info.properties import _supports_amlogic
+    except ImportError:
+        _supports_amlogic = lambda: False
+    
+    if _supports_amlogic():
+        parts = info("Player.Process(amlogic.eoft_gamut)").split()
+        mode = parts[0].upper() if parts else ""
+        if "DV" in mode or "DOLBY" in mode:
+            return "dolbyvision"
+        if "HDR10+" in mode or "HDR10PLUS" in mode or "PLUS" in mode:
+            return "hdr10+"
+        if "HLG" in mode:
+            return "hlg"
+        if "HDR" in mode:
+            return "hdr10"
+        return ""
+    
+    hdr = info("VideoPlayer.HDRType").lower()
+    if "dolby" in hdr or "dovi" in hdr:
         return "dolbyvision"
-    if "HDR10+" in mode or "HDR10PLUS" in mode or "PLUS" in mode:
+    if "hdr10+" in hdr or "hdr10plus" in hdr:
         return "hdr10+"
-    if "HLG" in mode:
+    if "hlg" in hdr:
         return "hlg"
-    if "HDR" in mode:
+    if "hdr" in hdr:
         return "hdr10"
     return ""
 
@@ -337,7 +355,6 @@ def _visible_condition(mode: str, suppress_start_for_osd: bool = False) -> str:
     if mode == "start":
         parts.extend((
             _home_prop_condition(PROP_RUNNING, False),
-            _home_prop_condition(PROP_DIALOG_MODE, False),
         ))
         if suppress_start_for_osd:
             parts.append("!Window.IsVisible(videoosd)")
@@ -345,12 +362,10 @@ def _visible_condition(mode: str, suppress_start_for_osd: bool = False) -> str:
         parts.extend((
             "Window.IsVisible(videoosd)",
             _home_prop_condition(PROP_RUNNING, False),
-            _home_prop_condition(PROP_DIALOG_MODE, False),
         ))
     elif mode == "tinyppi":
         parts.extend((
             _home_prop_condition(PROP_ACTIVE),
-            _home_prop_condition(PROP_DIALOG_MODE, False),
         ))
     return " + ".join(parts)
 

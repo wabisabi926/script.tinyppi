@@ -5,10 +5,8 @@ utils.py – Generic Kodi API wrappers and shared window-state helpers.
 import xbmc
 
 # Home-window (10000) properties describing the TinyPPI overlay state.
-# Shared by overlay.py and mode_select.py.
 PROP_RUNNING     = "TinyPPI.Running"
 PROP_ACTIVE      = "TinyPPI.Active"
-PROP_DIALOG_MODE = "TinyPPI.DialogMode"
 
 
 def cond(condition: str) -> bool:
@@ -18,7 +16,10 @@ def cond(condition: str) -> bool:
 
 def info(label: str) -> str:
     """Return the current value of a Kodi InfoLabel (never None)."""
-    return xbmc.getInfoLabel(label)
+    value = xbmc.getInfoLabel(label)
+    if value == label:
+        return ""
+    return value
 
 
 def clean(val) -> str:
@@ -36,5 +37,5 @@ def set_window_properties(window, values: tuple[tuple[str, str], ...]) -> None:
 
 def clear_overlay_state(home) -> None:
     """Clear the Home-window properties that mark TinyPPI as open."""
-    for prop in (PROP_RUNNING, PROP_ACTIVE, PROP_DIALOG_MODE):
+    for prop in (PROP_RUNNING, PROP_ACTIVE):
         home.clearProperty(prop)

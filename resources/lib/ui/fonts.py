@@ -23,15 +23,7 @@ _REQUIRED_FONTS = (
     {"name": "font32",        "filename": "Noto-Bold.ttf",    "size": "32"},
 )
 
-# Fonts ship in the tools.tinyppi addon; resolve defensively so a missing
-# tools addon never breaks import.
-try:
-    _TOOLS_DIR = xbmcaddon.Addon("tools.tinyppi").getAddonInfo("path")
-except Exception:
-    _TOOLS_DIR = ""
-
-_ADDON_FONTS_DIR = (os.path.normpath(os.path.join(_TOOLS_DIR, "tools", "fonts"))
-                    if _TOOLS_DIR else "")
+_ADDON_FONTS_DIR = os.path.normpath(os.path.join(_ADDON_DIR, "resources", "fonts"))
 
 
 def _log(msg: str, level: int = xbmc.LOGINFO) -> None:
@@ -89,6 +81,10 @@ def _registered_fonts(xml_root) -> set[tuple[str, str]]:
 
 def fonts_already_installed(skin_path: str) -> bool:
     """Return True only when every required font is in Font.xml and on disk."""
+    if not os.path.isdir(_ADDON_FONTS_DIR):
+        _log("Fonts directory not found – skipping install check")
+        return True
+
     font_xml_path = _find_font_xml(skin_path)
     if not font_xml_path:
         return False
@@ -100,7 +96,6 @@ def fonts_already_installed(skin_path: str) -> bool:
         _log(f"XML parse error: {exc}", xbmc.LOGERROR)
         return False
 
-    # Every fontset must carry all required fonts, not just the first.
     fontsets = xml_root.findall("fontset")
     if not fontsets:
         return False
@@ -223,6 +218,10 @@ def _install_xml(skin_path: str) -> bool:
 
 def _install_ttf(skin_path: str) -> bool:
     """Copy missing .ttf files into the skin; True if any file was copied."""
+    if not os.path.isdir(_ADDON_FONTS_DIR):
+        _log("Fonts directory not found – skipping TTF install")
+        return False
+
     ttf_dest_dir = _find_ttf_dir(skin_path)
     if not ttf_dest_dir:
         _log("installttf: no TTF destination directory", xbmc.LOGWARNING)

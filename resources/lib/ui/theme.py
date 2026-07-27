@@ -68,15 +68,6 @@ _TEXT_COLORS = (
     "FF90A4AE",  # 49 Cadet
 )
 
-# VS10 dialog focused-button highlight (texturefocus); index 0 is pure white.
-_DIALOG_FOCUS_COLORS = ("FFFFFFFF",) + _TEXT_COLORS[1:]
-
-# VS10 dialog focused-button text (focusedcolor); black default and white lead.
-_DIALOG_FOCUS_TEXT_COLORS = (
-    "FF000000",  # 0  Black (default)
-    "FFFFFFFF",  # 1  White
-) + _TEXT_COLORS[1:]
-
 # Channel layout graphic and its active channels; index 0 is pure white, so the
 # defaults reproduce the skin's untinted look.
 _CHANNEL_COLORS = ("FFFFFFFF",) + _TEXT_COLORS[1:]
@@ -160,10 +151,6 @@ _CUSTOM_INDEX = "999"
 # Palette index each color setting falls back to when its custom HEX is cleared
 # or invalid.  Mirrors <default> in settings.xml; unlisted settings default to 0.
 _DEFAULT_COLOR_INDEX = {
-    "convert_yes_color": "34",  # Forest
-    "convert_no_color":  "25",  # Crimson
-    "fel_color":         "34",  # Forest
-    "mel_color":         "31",  # Tangerine
 }
 
 # Custom HEX colors (8-digit ARGB), keyed by setting id, persisted as JSON in
@@ -173,14 +160,11 @@ _CUSTOM_FILE = "special://profile/addon_data/script.tinyppi/custom_colors.json"
 # Alpha prepended to a 6-digit custom HEX, keyed by setting id (default FF).
 _CUSTOM_ALPHA = {
     "background_color":        "FA",  # Modern background shades
-    "dialog_background_color": "FA",  # VS10 dialog panel background shades
-    "dialog_global_background_color": "FA",  # VS10 dialog full-screen background shades
     "global_background_color": "FA",  # full-screen global background shades
     "channel_background_color": "FA",  # DV channel panel background shades
     "channel_layout_color":     "54",  # speaker layout graphic (~33%)
     "accent_color":            "B3",  # dimmed detail accents (~70%)
     "line_color":              "26",  # faint separator lines (~15%)
-    "dialog_line_color":       "26",  # faint VS10 dialog separator lines (~15%)
 }
 _DEFAULT_ALPHA = "FF"
 
@@ -248,14 +232,11 @@ _DEFAULT_OPACITY = 100
 # each element's palette alpha.  Unlisted elements use _DEFAULT_OPACITY (100 %).
 _DEFAULT_OPACITIES = {
     "background_color":        98,  # FA – Modern panel background
-    "dialog_background_color": 98,  # FA – VS10 dialog panel background
-    "dialog_global_background_color": 0,  # off until the user raises the slider
     "global_background_color":  0,  # off until the user raises the slider
     "channel_background_color": 98,  # FA – DV channel panel background
     "channel_layout_color":     33,  # 54 – speaker layout graphic
     "accent_color":            70,  # B3 – dimmed inline detail accents
     "line_color":              15,  # 26 – faint separator lines
-    "dialog_line_color":       15,  # 26 – faint VS10 dialog separator lines
     # Per-context codec-logo panel (FA – Charcoal) and divider (59 – faint).
     "splash_start_bg_color":        98,
     "splash_start_divider_color":   35,
@@ -317,13 +298,7 @@ _THEME_PROPERTIES = (
     ("TinyPPI.FpsColor",              _TEXT_COLORS, "fps_color"),
     ("TinyPPI.UnitColor",             _TEXT_COLORS, "unit_color"),
     ("TinyPPI.AccentColor",           _ACCENT_COLORS, "accent_color"),
-    ("TinyPPI.ConvertYesColor",       _TEXT_COLORS, "convert_yes_color"),
-    ("TinyPPI.ConvertNoColor",        _TEXT_COLORS, "convert_no_color"),
-    ("TinyPPI.FelColor",              _TEXT_COLORS, "fel_color"),
-    ("TinyPPI.MelColor",              _TEXT_COLORS, "mel_color"),
     ("TinyPPI.BackgroundColor",       _BACKGROUND_COLORS, "background_color"),
-    ("TinyPPI.DialogBackgroundColor", _BACKGROUND_COLORS, "dialog_background_color"),
-    ("TinyPPI.DialogGlobalBackgroundColor", _BACKGROUND_COLORS, "dialog_global_background_color"),
     ("TinyPPI.GlobalBackgroundColor", _BACKGROUND_COLORS, "global_background_color"),
     # Codec logos: an independent bg / video / audio / divider colour per context
     # (playback start, video OSD, TinyPPI overlay).
@@ -345,15 +320,6 @@ _THEME_PROPERTIES = (
     ("TinyPPI.ChannelLayoutColor",     _CHANNEL_COLORS,    "channel_layout_color"),
     ("TinyPPI.ChannelIconColor",       _CHANNEL_COLORS,    "channel_icon_color"),
     ("TinyPPI.LineColor",             _LINE_COLORS, "line_color"),
-    ("TinyPPI.DialogHeaderColor",     _TEXT_COLORS, "dialog_header_color"),
-    ("TinyPPI.DialogHeaderIconColor", _TEXT_COLORS, "dialog_header_icon_color"),
-    ("TinyPPI.DialogLineColor",       _LINE_COLORS, "dialog_line_color"),
-    ("TinyPPI.DialogFocusColor",      _DIALOG_FOCUS_COLORS, "dialog_focus_color"),
-    (
-        "TinyPPI.DialogFocusTextColor",
-        _DIALOG_FOCUS_TEXT_COLORS,
-        "dialog_focus_text_color",
-    ),
 )
 
 

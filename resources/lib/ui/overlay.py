@@ -13,7 +13,6 @@ import xbmcgui
 import xbmcvfs
 from core.utils import (
     PROP_ACTIVE,
-    PROP_DIALOG_MODE,
     PROP_RUNNING,
     clear_overlay_state,
     set_window_properties,
@@ -66,13 +65,17 @@ _NUDGE_ACTIONS = {
 
 def _is_coreelec() -> bool:
     """Return True when running on a CoreELEC installation."""
-    if os.path.isdir("/etc/coreelec"):
-        return True
     try:
-        with open("/etc/os-release") as f:
-            return any("coreelec" in line.lower() for line in f)
-    except OSError:
-        return False
+        from info.properties import _supports_amlogic
+        return _supports_amlogic()
+    except ImportError:
+        if os.path.isdir("/etc/coreelec"):
+            return True
+        try:
+            with open("/etc/os-release") as f:
+                return any("coreelec" in line.lower() for line in f)
+        except OSError:
+            return False
 
 
 def _notify_error(message_id: int) -> None:
@@ -85,7 +88,7 @@ def _notify_error(message_id: int) -> None:
     )
 
 
-def _set_overlay_state(home, dialog_mode: bool = False) -> None:
+def _set_overlay_state(home) -> None:
     """Publish the Home-window properties that mark TinyPPI as open."""
     set_window_properties(
         home,
@@ -94,11 +97,6 @@ def _set_overlay_state(home, dialog_mode: bool = False) -> None:
             (PROP_ACTIVE, "true"),
         ),
     )
-
-    if dialog_mode:
-        home.setProperty(PROP_DIALOG_MODE, "true")
-    else:
-        home.clearProperty(PROP_DIALOG_MODE)
 
 
 def _preflight(home, player, toggle_log: str) -> bool:
@@ -181,8 +179,7 @@ class TinyPPIDialog(xbmcgui.WindowXMLDialog):
     def onInit(self) -> None:
         self._running   = True
         self._opened_at = time.time()
-        # Auto-hide timeout in seconds (0 = off). Applies to the TinyPPI
-        # overlay only, not the VS10 selection dialog.
+        # Auto-hide timeout in seconds (0 = off).
         self._auto_hide = _ADDON.getSettingInt("auto_hide")
 
         # Publish properties first so the HDR type is known before the initial
@@ -265,23 +262,6 @@ class TinyPPIDialog(xbmcgui.WindowXMLDialog):
             self._offset = offset
             self.getControl(5000).setPosition(*offset)
 
-        self._apply_dv_channel_offset()
-
-    def _apply_dv_channel_offset(self) -> None:
-        """Slide the DV channel panel (5100) along its own row.
-
-        The panel sits above the main box, so it can move horizontally on its
-        own: 100 % leaves it skin-aligned on the right, 0 % puts it at the left
-        inset.  Only the panel moves; the main box below it stays put.
-        """
-        travel = _CHANNEL_PANEL_DV_LEFT - _CONTENT_LEFT
-        pct    = min(max(_ADDON.getSettingInt("offset_x_dv"), 0), 100)
-        offset = (-round(travel * (100 - pct) / 100), 0)
-        if offset == self._dv_channel_offset:
-            return
-        self._dv_channel_offset = offset
-        self.getControl(5100).setPosition(*offset)
-
     def _move(self, dx: int, dy: int) -> None:
         """Shift the overlay by one step; reverts on the next launch."""
         nudge_x, nudge_y = self._nudge
@@ -332,6 +312,8 @@ class TinyPPIDialog(xbmcgui.WindowXMLDialog):
             self.close()
         except Exception:
             pass
+        finally:
+            self._monitor = None
 
 
 # ---------------------------------------------------------------------------
@@ -357,10 +339,6 @@ def open_tinyppi() -> None:
         home,
         (
             ("TinyPPI.Filename", _ADDON.getSetting("filename")),
-            (
-                "TinyPPI.ShowL5Icon",
-                "0" if _ADDON.getSetting("show_l5_icon") == "false" else "1",
-            ),
             ("TinyPPI.ShowLine", elements_visible),
             ("TinyPPI.ShowHeaderTitle", elements_visible),
             ("TinyPPI.ShowHeaderIcon", elements_visible),
@@ -384,28 +362,4 @@ def open_tinyppi() -> None:
         _release_overlay(home)
 
 
-def open_dialog_mode() -> None:
-    """Open the VS10-mode selection dialog."""
-    home   = xbmcgui.Window(10000)
-    player = xbmc.Player()
 
-    if not _preflight(home, player, "TinyPPI: Toggle close (dialog mode)"):
-        return
-
-    elements_visible = _elements_visible()
-    _set_overlay_state(home, dialog_mode=True)
-    set_window_properties(
-        home,
-        (
-            ("TinyPPI.ShowLine", elements_visible),
-            ("TinyPPI.ShowHeaderTitle", elements_visible),
-            ("TinyPPI.ShowHeaderIcon", elements_visible),
-        ),
-    )
-    apply_theme(home, _ADDON)
-
-    try:
-        from ui.mode_select import open_dialog
-        open_dialog()
-    finally:
-        _release_overlay(home)

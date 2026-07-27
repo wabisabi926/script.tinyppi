@@ -489,35 +489,6 @@
 						<aligny>top</aligny>
 					</control>
 
-					<!-- Converting -->
-					<control type="label">
-						<top>30</top>
-						<label>$ADDON[script.tinyppi 32028]:</label>
-						<font>font23_narrow</font>
-						<textcolor>$INFO[Window(10000).Property(TinyPPI.DescriptionColor)]</textcolor>
-						<aligny>top</aligny>
-					</control>
-					<control type="image">
-						<left>240</left>
-						<top>35</top>
-						<width>24</width>
-						<height>24</height>
-						<texture>icons/check-circle.png</texture>
-						<colordiffuse>$INFO[Window(10000).Property(TinyPPI.ConvertYesColor)]</colordiffuse>
-						<aligny>top</aligny>
-						<visible>[[String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hdr10) | String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hlg) | String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hdr10plus) | String.IsEmpty(Window(10000).Property(TinyPPI.HdrType))] + String.Contains(Player.Process(amlogic.eoft_gamut),DV)] | [[String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hdr10) | String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hlg) | String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hdr10plus) | String.Contains(Window(10000).Property(TinyPPI.HdrType),dolby)] + String.Contains(Player.Process(amlogic.eoft_gamut),SDR)] | [[String.IsEmpty(Window(10000).Property(TinyPPI.HdrType)) | String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hdr10plus) | String.Contains(Window(10000).Property(TinyPPI.HdrType),dolby)] + String.Contains(Player.Process(amlogic.eoft_gamut),HDR)]</visible>
-					</control>
-					<control type="image">
-						<left>240</left>
-						<top>35</top>
-						<width>24</width>
-						<height>24</height>
-						<texture>icons/circle-xmark.png</texture>
-						<colordiffuse>$INFO[Window(10000).Property(TinyPPI.ConvertNoColor)]</colordiffuse>
-						<aligny>top</aligny>
-						<visible>![[[String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hdr10) | String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hlg) | String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hdr10plus) | String.IsEmpty(Window(10000).Property(TinyPPI.HdrType))] + String.Contains(Player.Process(amlogic.eoft_gamut),DV)] | [[String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hdr10) | String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hlg) | String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hdr10plus) | String.Contains(Window(10000).Property(TinyPPI.HdrType),dolby)] + String.Contains(Player.Process(amlogic.eoft_gamut),SDR)] | [[String.IsEmpty(Window(10000).Property(TinyPPI.HdrType)) | String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hdr10plus) | String.Contains(Window(10000).Property(TinyPPI.HdrType),dolby)] + String.Contains(Player.Process(amlogic.eoft_gamut),HDR)]]</visible>
-					</control>
-
 					<!-- Output mode -->
 					<control type="label">
 						<top>60</top>
@@ -534,7 +505,7 @@
 						<font>font23_narrow</font>
 						<textcolor>$INFO[Window(10000).Property(TinyPPI.OutputColor)]</textcolor>
 						<aligny>top</aligny>
-						<visible>String.IsEqual(Window().Property(DoviProfilePending),true) | ![[[String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hdr10) | String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hlg) | String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hdr10plus) | String.IsEmpty(Window(10000).Property(TinyPPI.HdrType))] + String.Contains(Player.Process(amlogic.eoft_gamut),DV)] | [[String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hdr10) | String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hlg) | String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hdr10plus) | String.Contains(Window(10000).Property(TinyPPI.HdrType),dolby)] + String.Contains(Player.Process(amlogic.eoft_gamut),SDR)] | [[String.IsEmpty(Window(10000).Property(TinyPPI.HdrType)) | String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hdr10plus) | String.Contains(Window(10000).Property(TinyPPI.HdrType),dolby)] + String.Contains(Player.Process(amlogic.eoft_gamut),HDR)]]</visible>
+						<visible>String.IsEqual(Window().Property(DoviProfilePending),true) | ![[[String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hdr10) | String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hlg) | String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hdr10plus) | String.IsEmpty(Window(10000).Property(TinyPPI.HdrType))] + String.Contains(Window().Property(ModeVar),DV)] | [[String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hdr10) | String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hlg) | String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hdr10plus) | String.Contains(Window(10000).Property(TinyPPI.HdrType),dolby)] + String.Contains(Window().Property(ModeVar),SDR)] | [[String.IsEmpty(Window(10000).Property(TinyPPI.HdrType)) | String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hdr10plus) | String.Contains(Window(10000).Property(TinyPPI.HdrType),dolby)] + String.Contains(Window().Property(ModeVar),HDR)]]</visible>
 					</control>
 					<control type="label">
 						<left>240</left>
@@ -544,7 +515,7 @@
 						<font>font23_narrow</font>
 						<textcolor>$INFO[Window(10000).Property(TinyPPI.OutputColor)]</textcolor>
 						<aligny>top</aligny>
-						<visible>[String.IsEmpty(Window(10000).Property(TinyPPI.HdrType)) | String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hdr10) | String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hdr10plus) | String.Contains(Window(10000).Property(TinyPPI.HdrType),hlg)] + String.Contains(Player.Process(amlogic.eoft_gamut),DV) + !String.IsEqual(Window().Property(DoviProfilePending),true)</visible>
+						<visible>[String.IsEmpty(Window(10000).Property(TinyPPI.HdrType)) | String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hdr10) | String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hdr10plus) | String.Contains(Window(10000).Property(TinyPPI.HdrType),hlg)] + String.Contains(Window().Property(ModeVar),DV) + !String.IsEqual(Window().Property(DoviProfilePending),true)</visible>
 					</control>
 					<control type="label">
 						<left>240</left>
@@ -554,7 +525,7 @@
 						<font>font23_narrow</font>
 						<textcolor>$INFO[Window(10000).Property(TinyPPI.OutputColor)]</textcolor>
 						<aligny>top</aligny>
-						<visible>[String.IsEmpty(Window(10000).Property(TinyPPI.HdrType)) | String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hdr10plus) | String.Contains(Window(10000).Property(TinyPPI.HdrType),dolby)] + String.Contains(Player.Process(amlogic.eoft_gamut),hdr10) + !String.IsEqual(Window().Property(DoviProfilePending),true)</visible>
+						<visible>[String.IsEmpty(Window(10000).Property(TinyPPI.HdrType)) | String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hdr10plus) | String.Contains(Window(10000).Property(TinyPPI.HdrType),dolby)] + String.Contains(Window().Property(ModeVar),hdr10) + !String.IsEqual(Window().Property(DoviProfilePending),true)</visible>
 					</control>
 					<control type="label">
 						<left>240</left>
@@ -564,7 +535,7 @@
 						<font>font23_narrow</font>
 						<textcolor>$INFO[Window(10000).Property(TinyPPI.OutputColor)]</textcolor>
 						<aligny>top</aligny>
-						<visible>[String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hdr10) | String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hdr10plus) | String.Contains(Window(10000).Property(TinyPPI.HdrType),hlg) | String.Contains(Window(10000).Property(TinyPPI.HdrType),dolby)] + String.Contains(Player.Process(amlogic.eoft_gamut),SDR) + !String.IsEqual(Window().Property(DoviProfilePending),true)</visible>
+						<visible>[String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hdr10) | String.IsEqual(Window(10000).Property(TinyPPI.HdrType),hdr10plus) | String.Contains(Window(10000).Property(TinyPPI.HdrType),hlg) | String.Contains(Window(10000).Property(TinyPPI.HdrType),dolby)] + String.Contains(Window().Property(ModeVar),SDR) + !String.IsEqual(Window().Property(DoviProfilePending),true)</visible>
 					</control>
 
 					<!-- Bitrate -->
@@ -1340,44 +1311,6 @@
 							<aligny>top</aligny>
 						</control>
 
-						<!-- HDR10 MDL -->
-						<control type="label">
-							<top>30</top>
-							<label>$ADDON[script.tinyppi 32296]:</label>
-							<font>font23_narrow</font>
-							<textcolor>$INFO[Window(10000).Property(TinyPPI.DescriptionColor)]</textcolor>
-							<aligny>top</aligny>
-						</control>
-						<control type="label">
-							<left>225</left>
-							<top>30</top>
-							<width>270</width>
-							<align>right</align>
-							<label>$INFO[Window().Property(Hdr10MdlVar)]</label>
-							<font>font23_narrow</font>
-							<textcolor>$INFO[Window(10000).Property(TinyPPI.OutputColor)]</textcolor>
-							<aligny>top</aligny>
-						</control>
-
-						<!-- HDR10 MaxCLL/FALL -->
-						<control type="label">
-							<top>60</top>
-							<label>$ADDON[script.tinyppi 32297]:</label>
-							<font>font23_narrow</font>
-							<textcolor>$INFO[Window(10000).Property(TinyPPI.DescriptionColor)]</textcolor>
-							<aligny>top</aligny>
-						</control>
-						<control type="label">
-							<left>225</left>
-							<top>60</top>
-							<width>270</width>
-							<align>right</align>
-							<label>$INFO[Window().Property(Hdr10MaxCllFallVar)]</label>
-							<font>font23_narrow</font>
-							<textcolor>$INFO[Window(10000).Property(TinyPPI.OutputColor)]</textcolor>
-							<aligny>top</aligny>
-						</control>
-
 						<!-- Channel layout -->
 						<control type="group">
 							<top>140</top>
@@ -1421,378 +1354,9 @@
 							<aligny>top</aligny>
 						</control>
 
-						<!-- HDR10 MDL -->
-						<control type="label">
-							<top>30</top>
-							<label>$ADDON[script.tinyppi 32296]:</label>
-							<font>font23_narrow</font>
-							<textcolor>$INFO[Window(10000).Property(TinyPPI.DescriptionColor)]</textcolor>
-							<aligny>top</aligny>
-						</control>
-						<control type="label">
-							<left>225</left>
-							<top>30</top>
-							<width>270</width>
-							<align>right</align>
-							<label>$INFO[Window().Property(Hdr10MdlVar)]</label>
-							<font>font23_narrow</font>
-							<textcolor>$INFO[Window(10000).Property(TinyPPI.OutputColor)]</textcolor>
-							<aligny>top</aligny>
-						</control>
-
-						<!-- HDR10 MaxCLL/FALL -->
-						<control type="label">
-							<top>60</top>
-							<label>$ADDON[script.tinyppi 32297]:</label>
-							<font>font23_narrow</font>
-							<textcolor>$INFO[Window(10000).Property(TinyPPI.DescriptionColor)]</textcolor>
-							<aligny>top</aligny>
-						</control>
-						<control type="label">
-							<left>225</left>
-							<top>60</top>
-							<width>270</width>
-							<align>right</align>
-							<label>$INFO[Window().Property(Hdr10MaxCllFallVar)]</label>
-							<font>font23_narrow</font>
-							<textcolor>$INFO[Window(10000).Property(TinyPPI.OutputColor)]</textcolor>
-							<aligny>top</aligny>
-						</control>
 					</control>
 				</control>
-				
-				<!-- Group: Dolby Vision -->
-				<control type="group">
-				<visible>String.Contains(Window(10000).Property(TinyPPI.HdrType),dolby)</visible>
-					<left>1315</left>
 
-					<!-- Dolby Vision Logo Icon -->
-					<control type="image">
-						<texture colordiffuse="$INFO[Window(10000).Property(TinyPPI.IconColor)]">icons/dv-logo.png</texture>
-						<aspectratio align="left">keep</aspectratio>
-						<height>23</height>
-						<top>7</top>
-						<aligny>top</aligny>
-					</control>
-
-					<!-- Dolby Vision Name Icon -->
-					<control type="image">
-						<texture colordiffuse="$INFO[Window(10000).Property(TinyPPI.TitleColor)]">icons/dv-name.png</texture>
-						<aspectratio align="left">keep</aspectratio>
-						<height>23</height>
-						<left>35</left>
-						<top>7</top>
-						<aligny>top</aligny>
-					</control>
-
-					<!-- Metadata -->
-					<control type="label">
-						<top>30</top>
-						<label>$ADDON[script.tinyppi 32289]:</label>
-						<font>font23_narrow</font>
-						<textcolor>$INFO[Window(10000).Property(TinyPPI.DescriptionColor)]</textcolor>
-						<aligny>top</aligny>
-					</control>
-					<control type="label">
-						<left>332</left>
-						<top>30</top>
-						<label>$INFO[Window().Property(DoviCmVersionVar)] [COLOR $INFO[Window(10000).Property(TinyPPI.AccentColor)]]$INFO[Window().Property(DoviStructureVar)][/COLOR]</label>
-						<font>font23_narrow</font>
-						<textcolor>$INFO[Window(10000).Property(TinyPPI.OutputColor)]</textcolor>
-						<aligny>top</aligny>
-					</control>
-					
-					<!-- Profile -->
-					<control type="label">
-						<top>60</top>
-						<label>$ADDON[script.tinyppi 32290]:</label>
-						<font>font23_narrow</font>
-						<textcolor>$INFO[Window(10000).Property(TinyPPI.DescriptionColor)]</textcolor>
-						<aligny>top</aligny>
-					</control>
-					<control type="label">
-						<left>332</left>
-						<top>60</top>
-						<label>$INFO[Window().Property(DoviProfileNumberVar)]</label>
-						<font>font23_narrow</font>
-						<textcolor>$INFO[Window(10000).Property(TinyPPI.OutputColor)]</textcolor>
-						<aligny>top</aligny>
-					</control>
-
-					<!-- Level -->
-					<control type="label">
-						<top>90</top>
-						<label>$ADDON[script.tinyppi 32291]:</label>
-						<font>font23_narrow</font>
-						<textcolor>$INFO[Window(10000).Property(TinyPPI.DescriptionColor)]</textcolor>
-						<aligny>top</aligny>
-					</control>
-					<control type="label">
-						<left>332</left>
-						<top>90</top>
-						<label>$INFO[Window().Property(DoviVersionVar)]</label>
-						<font>font23_narrow</font>
-						<textcolor>$INFO[Window(10000).Property(TinyPPI.OutputColor)]</textcolor>
-						<aligny>top</aligny>
-					</control>
-					
-					<!-- RPU -->
-					<control type="label">
-						<top>120</top>
-						<label>$ADDON[script.tinyppi 32292]:</label>
-						<font>font23_narrow</font>
-						<textcolor>$INFO[Window(10000).Property(TinyPPI.DescriptionColor)]</textcolor>
-						<aligny>top</aligny>
-					</control>
-					<control type="image">
-						<left>333</left>
-						<top>125</top>
-						<width>24</width>
-						<height>24</height>
-						<texture>icons/check-circle.png</texture>
-						<colordiffuse>$INFO[Window(10000).Property(TinyPPI.ConvertYesColor)]</colordiffuse>
-						<aspectratio>keep</aspectratio>
-						<visible>String.IsEqual(Window.Property(DoviRpuPresentVar),true)</visible>
-					</control>
-					<control type="image">
-						<left>333</left>
-						<top>125</top>
-						<width>24</width>
-						<height>24</height>
-						<texture>icons/circle-xmark.png</texture>
-						<colordiffuse>$INFO[Window(10000).Property(TinyPPI.ConvertNoColor)]</colordiffuse>
-						<aspectratio>keep</aspectratio>
-						<visible>String.IsEqual(Window.Property(DoviRpuPresentVar),false)</visible>
-					</control>
-					
-					<!-- Base Layer -->
-					<control type="label">
-						<top>150</top>
-						<label>$ADDON[script.tinyppi 32293]:</label>
-						<font>font23_narrow</font>
-						<textcolor>$INFO[Window(10000).Property(TinyPPI.DescriptionColor)]</textcolor>
-						<aligny>top</aligny>
-					</control>
-					<control type="image">
-						<left>333</left>
-						<top>155</top>
-						<width>24</width>
-						<height>24</height>
-						<texture>icons/check-circle.png</texture>
-						<colordiffuse>$INFO[Window(10000).Property(TinyPPI.ConvertYesColor)]</colordiffuse>
-						<aspectratio>keep</aspectratio>
-						<visible>String.IsEqual(Window.Property(DoviBlPresentVar),true)</visible>
-					</control>
-					<control type="image">
-						<left>333</left>
-						<top>155</top>
-						<width>24</width>
-						<height>24</height>
-						<texture>icons/circle-xmark.png</texture>
-						<colordiffuse>$INFO[Window(10000).Property(TinyPPI.ConvertNoColor)]</colordiffuse>
-						<aspectratio>keep</aspectratio>
-						<visible>String.IsEqual(Window.Property(DoviBlPresentVar),false)</visible>
-					</control>
-					
-					<!-- Enhancement Layer -->
-					<control type="label">
-						<top>180</top>
-						<label>$ADDON[script.tinyppi 32294]:</label>
-						<font>font23_narrow</font>
-						<textcolor>$INFO[Window(10000).Property(TinyPPI.DescriptionColor)]</textcolor>
-						<aligny>top</aligny>
-					</control>
-					<control type="image">
-						<left>333</left>
-						<top>185</top>
-						<width>24</width>
-						<height>24</height>
-						<texture>icons/check-circle.png</texture>
-						<colordiffuse>$INFO[Window(10000).Property(TinyPPI.ConvertYesColor)]</colordiffuse>
-						<aspectratio>keep</aspectratio>
-						<visible>String.IsEqual(Window.Property(DoviElPresentVar),true)</visible>
-					</control>
-					<control type="image">
-						<left>333</left>
-						<top>185</top>
-						<width>24</width>
-						<height>24</height>
-						<texture>icons/circle-xmark.png</texture>
-						<colordiffuse>$INFO[Window(10000).Property(TinyPPI.ConvertNoColor)]</colordiffuse>
-						<aspectratio>keep</aspectratio>
-						<visible>String.IsEqual(Window.Property(DoviElPresentVar),false)</visible>
-					</control>
-					
-					<!-- Enhancement Layer Type -->
-					<control type="label">
-						<top>210</top>
-						<label>$ADDON[script.tinyppi 32295]:</label>
-						<font>font23_narrow</font>
-						<textcolor>$INFO[Window(10000).Property(TinyPPI.DescriptionColor)]</textcolor>
-						<aligny>top</aligny>
-					</control>
-					<control type="image">
-						<left>333</left>
-						<top>215</top>
-						<width>24</width>
-						<height>24</height>
-						<texture>icons/check-circle.png</texture>
-						<colordiffuse>$INFO[Window(10000).Property(TinyPPI.ConvertYesColor)]</colordiffuse>
-						<aspectratio>keep</aspectratio>
-						<visible>String.Contains(Window.Property(DoviElTypeVar),FEL) | String.Contains(Window.Property(DoviElTypeVar),MEL)</visible>
-					</control>
-					<control type="image">
-						<left>333</left>
-						<top>215</top>
-						<width>24</width>
-						<height>24</height>
-						<texture>icons/circle-xmark.png</texture>
-						<colordiffuse>$INFO[Window(10000).Property(TinyPPI.ConvertNoColor)]</colordiffuse>
-						<aspectratio>keep</aspectratio>
-						<visible>![String.Contains(Window.Property(DoviElTypeVar),FEL) | String.Contains(Window.Property(DoviElTypeVar),MEL) | String.IsEmpty(Window.Property(DoviElTypeVar))]</visible>
-					</control>
-				</control>
-				
-				<!-- Group: Metadata -->
-				<control type="group">
-				<visible>String.Contains(Window(10000).Property(TinyPPI.HdrType),dolby)</visible>
-					<top>260</top>
-					<left>1315</left>
-					
-					<!-- Metadata Icon -->
-					<control type="image">
-						<top>4</top>
-						<width>26</width>
-						<height>26</height>
-						<texture>icons/layer-group.png</texture>
-						<colordiffuse>$INFO[Window(10000).Property(TinyPPI.IconColor)]</colordiffuse>
-						<aligny>top</aligny>
-					</control>
-
-					<!-- Metadata -->
-					<control type="label">
-						<label>[B][UPPERCASE]$ADDON[script.tinyppi 32289][/UPPERCASE][/B]</label>
-						<left>35</left>
-						<font>font23_narrow</font>
-						<textcolor>$INFO[Window(10000).Property(TinyPPI.TitleColor)]</textcolor>
-						<aligny>top</aligny>
-					</control>
-					
-					<!-- HDR10 MDL -->
-					<control type="label">
-						<top>30</top>
-						<label>$ADDON[script.tinyppi 32296]:</label>
-						<font>font23_narrow</font>
-						<textcolor>$INFO[Window(10000).Property(TinyPPI.DescriptionColor)]</textcolor>
-						<aligny>top</aligny>
-					</control>
-					<control type="label">
-						<left>225</left>
-						<top>30</top>
-						<width>270</width>
-						<align>right</align>
-						<label>$INFO[Window().Property(Hdr10MdlVar)]</label>
-						<font>font23_narrow</font>
-						<textcolor>$INFO[Window(10000).Property(TinyPPI.OutputColor)]</textcolor>
-						<aligny>top</aligny>
-					</control>
-					
-					<!-- HDR10 MaxCLL/FALL -->
-					<control type="label">
-						<top>60</top>
-						<label>$ADDON[script.tinyppi 32297]:</label>
-						<font>font23_narrow</font>
-						<textcolor>$INFO[Window(10000).Property(TinyPPI.DescriptionColor)]</textcolor>
-						<aligny>top</aligny>
-					</control>
-					<control type="label">
-						<left>225</left>
-						<top>60</top>
-						<width>270</width>
-						<align>right</align>
-						<label>$INFO[Window().Property(Hdr10MaxCllFallVar)]</label>
-						<font>font23_narrow</font>
-						<textcolor>$INFO[Window(10000).Property(TinyPPI.OutputColor)]</textcolor>
-						<aligny>top</aligny>
-					</control>
-					
-					<!-- RPU MDL -->
-					<control type="label">
-						<top>120</top>
-						<label>$ADDON[script.tinyppi 32298]:</label>
-						<font>font23_narrow</font>
-						<textcolor>$INFO[Window(10000).Property(TinyPPI.DescriptionColor)]</textcolor>
-						<aligny>top</aligny>
-					</control>
-					<control type="label">
-						<left>225</left>
-						<top>120</top>
-						<width>270</width>
-						<align>right</align>
-						<label>$INFO[Window().Property(DoviLevel6RpuMdlVar)]</label>
-						<font>font23_narrow</font>
-						<textcolor>$INFO[Window(10000).Property(TinyPPI.OutputColor)]</textcolor>
-						<aligny>top</aligny>
-					</control>
-					
-					<!-- RPU MaxCLL/FALL -->
-					<control type="label">
-						<top>150</top>
-						<label>$ADDON[script.tinyppi 32299]:</label>
-						<font>font23_narrow</font>
-						<textcolor>$INFO[Window(10000).Property(TinyPPI.DescriptionColor)]</textcolor>
-						<aligny>top</aligny>
-					</control>
-					<control type="label">
-						<left>225</left>
-						<top>150</top>
-						<width>270</width>
-						<align>right</align>
-						<label>$INFO[Window().Property(DoviLevel6RpuMaxCllFallVar)]</label>
-						<font>font23_narrow</font>
-						<textcolor>$INFO[Window(10000).Property(TinyPPI.OutputColor)]</textcolor>
-						<aligny>top</aligny>
-					</control>
-					
-					<!-- L5 active offsets -->
-					<control type="label">
-						<top>210</top>
-						<label>$ADDON[script.tinyppi 32030]:</label>
-						<font>font23_narrow</font>
-						<textcolor>$INFO[Window(10000).Property(TinyPPI.DescriptionColor)]</textcolor>
-						<aligny>top</aligny>
-					</control>
-					<control type="grouplist">
-						<left>45</left>
-						<top>210</top>
-						<width>450</width>
-						<height>31</height>
-						<orientation>horizontal</orientation>
-						<align>right</align>
-						<itemgap>15</itemgap>
-						<control type="label">
-							<width>auto</width>
-							<height>31</height>
-							<label>$INFO[Window.Property(DoviLevel5OffsetsVar)]</label>
-							<font>font23_narrow</font>
-							<textcolor>$INFO[Window(10000).Property(TinyPPI.OutputColor)]</textcolor>
-							<aligny>top</aligny>
-						</control>
-						<control type="group">
-							<visible>String.IsEqual(Window.Property(DoviLevel5OffsetsIconVisible),true) + String.IsEqual(Window(10000).Property(TinyPPI.ShowL5Icon),1)</visible>
-							<width>48</width>
-							<height>31</height>
-							<control type="image">
-								<top>4</top>
-								<width>48</width>
-								<height>25</height>
-								<texture>icons/lrtb.png</texture>
-								<colordiffuse>$INFO[Window(10000).Property(TinyPPI.IconColor)]</colordiffuse>
-								<aspectratio>keep</aspectratio>
-							</control>
-						</control>
-					</control>
-				</control>
 			</control>
 		</control>
     </controls>

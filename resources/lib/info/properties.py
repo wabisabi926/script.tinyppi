@@ -3,6 +3,7 @@
 Call ``update_properties(window)`` once per polling interval.
 """
 
+import os
 import re
 
 import xbmc
@@ -24,30 +25,117 @@ from core.maps import (
     VIDEO_CODEC_MAP,
 )
 from core.utils import clean, cond, info, set_window_properties
-from info.dvinfo import (
-    get_active_audio_bit_depth,
-    get_active_audio_sample_rate,
-    get_bit_depth,
-    get_cm_version,
-    get_dv_bl_present,
-    get_dv_el_present,
-    get_dv_el_type,
-    get_dv_profile,
-    get_dv_rpu_present,
-    get_dv_version,
-    get_hdr10_max_cll_fall,
-    get_hdr10_mdl,
-    get_hdr_format,
-    get_l5_offsets,
-    get_l6_rpu_max_cll_fall,
-    get_l6_rpu_mdl,
-    get_output_mode,
-    get_structure,
-    is_fetch_label,
-    is_status_label,
-)
+def _empty() -> str:
+    return ""
+
+def _false() -> str:
+    return "false"
+
+get_cm_version = _empty
+get_structure = _empty
+get_l5_offsets = _empty
+get_l6_rpu_mdl = _empty
+get_l6_rpu_max_cll_fall = _empty
+get_hdr10_mdl = _empty
+get_hdr10_max_cll_fall = _empty
+get_dv_version = _empty
+get_dv_profile = _empty
+get_dv_rpu_present = _false
+get_dv_bl_present = _false
+get_dv_el_present = _false
+get_dv_el_type = _empty
+def get_bit_depth() -> str:
+    """Return video bit depth using Kodi's VideoPlayer properties."""
+    bitdepth = clean(info("VideoPlayer.VideoBitDepth"))
+    if bitdepth:
+        return bitdepth
+    return ""
+get_hdr_format = _empty
+get_output_mode = _empty
+get_active_audio_bit_depth = _empty
+get_active_audio_sample_rate = _empty
+
+def is_fetch_label(value: str) -> bool:
+    return False
+
+def is_status_label(value: str) -> bool:
+    return False
 
 _DECIMAL_RE = re.compile(r"-?\d+(?:[.,]\d+)?")
+
+_platform_cache: str | None = None
+_kodi_version_cache: int | None = None
+
+def _detect_platform() -> str:
+    """Detect the platform: 'coreelec', 'android', 'windows', or 'linux'."""
+    global _platform_cache
+    if _platform_cache is not None:
+        return _platform_cache
+    
+    if os.path.isdir("/etc/coreelec"):
+        _platform_cache = "coreelec"
+        return _platform_cache
+    
+    try:
+        with open("/etc/os-release", encoding="utf-8") as f:
+            content = f.read().lower()
+            if "coreelec" in content:
+                _platform_cache = "coreelec"
+                return _platform_cache
+            if "libreelec" in content:
+                _platform_cache = "libreelec"
+                return _platform_cache
+    except OSError:
+        pass
+    
+    try:
+        import platform as pyplatform
+        system = pyplatform.system().lower()
+        if system == "windows":
+            _platform_cache = "windows"
+            return _platform_cache
+        if system == "linux":
+            _platform_cache = "linux"
+            return _platform_cache
+    except ImportError:
+        pass
+    
+    if "ANDROID_DATA" in os.environ:
+        _platform_cache = "android"
+        return _platform_cache
+    
+    _platform_cache = "linux"
+    return _platform_cache
+
+
+def _get_kodi_version() -> int:
+    """Return the major Kodi version (21, 22, etc.)."""
+    global _kodi_version_cache
+    if _kodi_version_cache is not None:
+        return _kodi_version_cache
+    
+    version_str = info("System.BuildVersion")
+    try:
+        _kodi_version_cache = int(version_str.split(".")[0])
+    except (IndexError, ValueError):
+        _kodi_version_cache = 21
+    
+    return _kodi_version_cache
+
+
+def _supports_amlogic() -> bool:
+    """Return True if the platform supports Amlogic properties."""
+    platform = _detect_platform()
+    return platform == "coreelec"
+
+
+def _supports_new_videoplayer() -> bool:
+    """Return True if the platform supports VideoPlayer.VideoBitDepth etc."""
+    platform = _detect_platform()
+    version = _get_kodi_version()
+    if platform == "windows" and version < 22:
+        return False
+    return True
 
 # Channel graphics ship pre-scaled to the exact box the skin draws them in
 # (see script-tinyppi-main.xml), so Kodi never resamples them: SDR and
@@ -97,50 +185,70 @@ def get_VideoDecoderLongVar() -> str:
 
 
 def get_VideoPixelFormatVar() -> str:
-    """Parse ``amlogic.pixformat`` into e.g. ``10-bit (YUV 4:2:0)`` / ``8-bit, RGB``."""
-    val = info("Player.Process(amlogic.pixformat)").strip()
-    if not val:
-        return ""
-
-    match = re.search(
-        r"(\d+)-bit\s*,\s*(RGB|YUV420|YUV422|YUV444)",
-        val,
-        re.IGNORECASE,
-    )
-    if not match:
-        return val
-
-    bits, fmt = match.groups()
-    fmt = fmt.upper()
-
-    if fmt == "RGB":
-        return f"{bits}-bit, RGB"
-
-    yuv_map = {
-        "YUV420": "YUV 4:2:0",
-        "YUV422": "YUV 4:2:2",
-        "YUV444": "YUV 4:4:4",
-    }
-    return f"{bits}-bit ({yuv_map.get(fmt, fmt)})"
+    """Parse pixel format. Uses Amlogic prop on CoreELEC, fallback to bit depth."""
+    if _supports_amlogic():
+        val = info("Player.Process(amlogic.pixformat)").strip()
+        if val:
+            match = re.search(
+                r"(\d+)-bit\s*,\s*(RGB|YUV420|YUV422|YUV444)",
+                val,
+                re.IGNORECASE,
+            )
+            if match:
+                bits, fmt = match.groups()
+                fmt = fmt.upper()
+                if fmt == "RGB":
+                    return f"{bits}-bit, RGB"
+                yuv_map = {
+                    "YUV420": "YUV 4:2:0",
+                    "YUV422": "YUV 4:2:2",
+                    "YUV444": "YUV 4:4:4",
+                }
+                return f"{bits}-bit ({yuv_map.get(fmt, fmt)})"
+            return val
+    
+    if _supports_new_videoplayer():
+        bitdepth = clean(info("VideoPlayer.VideoBitDepth"))
+        if bitdepth:
+            return f"{bitdepth}-bit"
+    
+    pixfmt = info("Player.Process(videopixformat)").strip()
+    if pixfmt:
+        return pixfmt
+    
+    return ""
 
 
 def get_DisplayModeVar() -> str:
-    """Parse ``amlogic.displaymode`` into a compact string like ``1080p 23.976Hz``."""
-    val = info("Player.Process(amlogic.displaymode)").strip()
-    if not val:
-        return ""
-
-    compact = re.sub(r"\s+", "", val)
-    match = re.match(
-        r"(\d+(?:x\d+)?)(p|i)(\d+(?:\.\d+)?)[Hh][Zz]",
-        compact,
-        re.IGNORECASE,
-    )
-    if not match:
-        return val
-
-    res, scan, raw_fps = match.groups()
-    return f"{res}{scan} {normalize_fps(raw_fps)}Hz"
+    """Parse display mode. Uses Amlogic prop on CoreELEC, fallback otherwise."""
+    if _supports_amlogic():
+        val = info("Player.Process(amlogic.displaymode)").strip()
+        if val:
+            compact = re.sub(r"\s+", "", val)
+            match = re.match(
+                r"(\d+(?:x\d+)?)(p|i)(\d+(?:\.\d+)?)[Hh][Zz]",
+                compact,
+                re.IGNORECASE,
+            )
+            if match:
+                res, scan, raw_fps = match.groups()
+                return f"{res}{scan} {normalize_fps(raw_fps)}Hz"
+            return val
+    
+    res = info("VideoPlayer.DisplayResolution").strip()
+    if res:
+        if "FPS" in res:
+            res = res.replace("FPS", "Hz")
+        return res
+    
+    width = clean(info("VideoPlayer.DisplayWidth"))
+    height = clean(info("VideoPlayer.DisplayHeight"))
+    fps = clean(info("VideoPlayer.DisplayFPS"))
+    if width and height:
+        fps_str = f" {normalize_fps(fps)}Hz" if fps else ""
+        return f"{width}x{height}p{fps_str}"
+    
+    return ""
 
 
 def get_VideoResolutionVar() -> str:
@@ -222,14 +330,17 @@ def get_VideoBitDepthVar() -> str:
 # --- HDR / Dolby Vision properties -----------------------------------------
 
 # Cached (pixformat, result) for get_DoviTunnelVar: the sysfs DV mode only
-# changes on a VS10 switch, which also changes the pixel format, so keying on
-# pixformat avoids re-reading sysfs every cycle.
+# changes when the pixel format changes, so keying on pixformat avoids
+# re-reading sysfs every cycle.
 _dovi_tunnel_cache: tuple[str, str] | None = None
 
 
 def get_DoviTunnelVar() -> str:
     """Return ``"DV Tunnel"`` when sysfs DV mode is 1 and the output is 8-bit,
-    else ``""``.  Cached per Amlogic pixel format."""
+    else ``""``. Cached per Amlogic pixel format. Only works on CoreELEC."""
+    if not _supports_amlogic():
+        return ""
+    
     global _dovi_tunnel_cache
 
     pixformat = info("Player.Process(amlogic.pixformat)").strip()
@@ -248,7 +359,6 @@ def get_DoviTunnelVar() -> str:
                 if f.read().strip() == "1":
                     result = "DV Tunnel"
         except OSError:
-            # Don't cache a failure; retry next cycle.
             return ""
 
     _dovi_tunnel_cache = (pixformat, result)
@@ -271,15 +381,35 @@ def _with_unit(value: str, unit: str) -> str:
 # --- Amlogic EOFT / gamut --------------------------------------------------
 
 def get_ModeVar() -> str:
-    """Return the first token of ``amlogic.eoft_gamut`` (the mode field)."""
-    parts = info("Player.Process(amlogic.eoft_gamut)").split()
-    return parts[0] if parts else ""
+    """Return output mode. Uses HDRType for input mode, fallback to Amlogic."""
+    mode = _output_mode_from_videoplayer()
+    if mode and mode != "SDR":
+        return mode
+    
+    if _supports_amlogic():
+        parts = info("Player.Process(amlogic.eoft_gamut)").split()
+        return parts[0] if parts else ""
+    
+    return mode
 
 
 def get_GamutVar() -> str:
-    """Return the second token of ``amlogic.eoft_gamut`` (the gamut field)."""
-    parts = info("Player.Process(amlogic.eoft_gamut)").split()
-    return parts[1] if len(parts) > 1 else ""
+    """Return gamut. Uses Amlogic prop on CoreELEC, fallback to color space."""
+    if _supports_amlogic():
+        parts = info("Player.Process(amlogic.eoft_gamut)").split()
+        return parts[1] if len(parts) > 1 else ""
+    
+    if _supports_new_videoplayer():
+        colorspace = info("VideoPlayer.VideoColorSpace").strip()
+        if colorspace:
+            return colorspace
+    
+    hdr = info("VideoPlayer.HDRType").lower()
+    if "dolby" in hdr or "dovi" in hdr:
+        return "DV"
+    if "hdr" in hdr:
+        return "HDR"
+    return ""
 
 
 def _output_mode_from_videoplayer() -> str:
@@ -302,6 +432,9 @@ def _output_mode_from_videoplayer() -> str:
     if "hdr10" in hdr or "hdr" in hdr or "pq" in hdr:
         return "HDR10"
     return "SDR"
+
+
+get_output_mode = _output_mode_from_videoplayer
 
 
 def _media_source_name(output_mode: str) -> str:

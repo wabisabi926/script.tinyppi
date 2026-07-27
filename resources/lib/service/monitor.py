@@ -13,8 +13,13 @@ _LIB_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if _LIB_PATH not in sys.path:
     sys.path.insert(0, _LIB_PATH)
 
-from info.dvinfo import prime_playback_detection, reset_playback_cache
 from ui.theme import apply_theme
+
+def prime_playback_detection() -> bool:
+    return False
+
+def reset_playback_cache() -> None:
+    pass
 
 _ADDON_ID = "script.tinyppi"
 _HOME_WINDOW_ID = 10000

@@ -1,0 +1,156 @@
+================================================================================
+KODI SKIN VALIDATION REPORT
+================================================================================
+
+Skin:      script.tinyppi
+Path:      D:\Downloads\ai\script.tinyppi
+Generated: 2026-07-27 21:01:14
+Total:     47 errors, 4 warnings
+
+--------------------------------------------------------------------------------
+Category                    Errors   Warnings
+--------------------------------------------------------------------------------
+File Integrity                  23          0
+IDs                             24          0
+--------------------------------------------------------------------------------
+
+
+============================================================
+ FILE INTEGRITY (23 issues)
+============================================================
+
+  README.md
+    E L0     Windows Line Endings detected in README.md
+
+  addon.xml
+    E L0     Windows Line Endings detected in addon.xml
+
+  main.py
+    E L0     Windows Line Endings detected in main.py
+
+  resources\language\resource.language.de_de\strings.po
+    E L0     Windows Line Endings detected in strings.po
+
+  resources\language\resource.language.en_gb\strings.po
+    E L0     Windows Line Endings detected in strings.po
+
+  resources\language\resource.language.zh_cn\strings.po
+    E L0     Windows Line Endings detected in strings.po
+
+  resources\lib\core\__init__.py
+    E L0     Windows Line Endings detected in __init__.py
+
+  resources\lib\core\helpers.py
+    E L0     Windows Line Endings detected in helpers.py
+
+  resources\lib\core\images.py
+    E L0     Windows Line Endings detected in images.py
+
+  resources\lib\core\maps.py
+    E L0     Windows Line Endings detected in maps.py
+
+  resources\lib\core\utils.py
+    E L0     Windows Line Endings detected in utils.py
+
+  resources\lib\info\__init__.py
+    E L0     Windows Line Endings detected in __init__.py
+
+  resources\lib\info\dvinfo.py
+    E L0     Windows Line Endings detected in dvinfo.py
+
+  resources\lib\info\properties.py
+    E L0     Windows Line Endings detected in properties.py
+
+  resources\lib\service\__init__.py
+    E L0     Windows Line Endings detected in __init__.py
+
+  resources\lib\service\monitor.py
+    E L0     Windows Line Endings detected in monitor.py
+
+  resources\lib\ui\__init__.py
+    E L0     Windows Line Endings detected in __init__.py
+
+  resources\lib\ui\fonts.py
+    E L0     Windows Line Endings detected in fonts.py
+
+  resources\lib\ui\overlay.py
+    E L0     Windows Line Endings detected in overlay.py
+
+  resources\lib\ui\splash.py
+    E L0     Windows Line Endings detected in splash.py
+
+  resources\lib\ui\theme.py
+    E L0     Windows Line Endings detected in theme.py
+
+  resources\settings.xml
+    E L0     Windows Line Endings detected in settings.xml
+
+  resources\skins\Default\1080i\script-tinyppi-main.xml
+    E L0     Windows Line Endings detected in script-tinyppi-main.xml
+
+
+============================================================
+ FONTS (1 issues)
+============================================================
+
+  
+    W L0     No font issues found
+
+
+============================================================
+ IDS (24 issues)
+============================================================
+
+  resources\skins\Default\1080i\script-tinyppi-main.xml
+    E L24    Window id: Please use home instead of 10000
+    E L25    Window id: Please use home instead of 10000
+    E L62    Window id: Please use home instead of 10000
+    E L75    Window id: Please use home instead of 10000
+    E L87    Window id: Please use home instead of 10000
+    E L99    Window id: Please use home instead of 10000
+    E L129   Window id: Please use home instead of 10000
+    E L166   Window id: Please use home instead of 10000
+    E L179   Window id: Please use home instead of 10000
+    E L191   Window id: Please use home instead of 10000
+    E L203   Window id: Please use home instead of 10000
+    E L232   Window id: Please use home instead of 10000
+    E L255   Window id: Please use home instead of 10000
+    E L256   Window id: Please use home instead of 10000
+    E L508   Window id: Please use home instead of 10000
+    E L518   Window id: Please use home instead of 10000
+    E L528   Window id: Please use home instead of 10000
+    E L538   Window id: Please use home instead of 10000
+    E L1288  Window id: Please use home instead of 10000
+    E L1292  Window id: Please use home instead of 10000
+    E L1373  Window id: Please use home instead of 10000
+    E L1437  Window id: Please use home instead of 10000
+    E L1629  Window id: Please use home instead of 10000
+    E L1753  Window id: Please use home instead of 10000
+
+
+============================================================
+ IMAGES (1 issues)
+============================================================
+
+  
+    W L0     Image validation unavailable (no index)
+
+
+============================================================
+ INCLUDES (1 issues)
+============================================================
+
+  
+    W L0     Check failed: 'Addon' object has no attribute 'include_map'
+
+
+============================================================
+ VARIABLES (1 issues)
+============================================================
+
+  
+    W L0     Check failed: 'Addon' object has no attribute 'variable_map'
+
+================================================================================
+END OF REPORT
+================================================================================

@@ -87,10 +87,6 @@ msgctxt "#32027"
 msgid "Output mode"
 msgstr "Ausgabemodus"
 
-msgctxt "#32028"
-msgid "Converting"
-msgstr "Umwandlung"
-
 msgctxt "#32030"
 msgid "L5 active area"
 msgstr "L5 aktiver Bereich"
@@ -167,26 +163,6 @@ msgctxt "#32091"
 msgid "Disabled"
 msgstr "Deaktiviert"
 
-msgctxt "#32092"
-msgid "Launch mode"
-msgstr "Startmodus"
-
-msgctxt "#32093"
-msgid "Choose what opens when the add-on is launched."
-msgstr "Wähle aus, was beim Start des Add-ons geöffnet wird."
-
-msgctxt "#32094"
-msgid "TinyPPI"
-msgstr "TinyPPI"
-
-msgctxt "#32095"
-msgid "VS10 dialog"
-msgstr "VS10-Dialog"
-
-msgctxt "#32096"
-msgid "Fetching..."
-msgstr "Wird ermittelt..."
-
 msgctxt "#32099"
 msgid "Bit depth"
 msgstr "Bittiefe"
@@ -196,8 +172,8 @@ msgid "Customise the TinyPPI overlay colors."
 msgstr "Passe die Farben des TinyPPI-Overlays an."
 
 msgctxt "#32103"
-msgid "Background"
-msgstr "Hintergrund"
+msgid "Background color"
+msgstr "Hintergrundfarbe"
 
 msgctxt "#32104"
 msgid "Background color of the overlay style."
@@ -353,7 +329,7 @@ msgstr "Farbe der Overlay-Kopfzeile (Modern)."
 
 msgctxt "#32144"
 msgid "Header icon"
-msgstr "Kopfzeilensymbol"
+msgstr "Kopfzeilen-Symbol"
 
 msgctxt "#32145"
 msgid "Color of the chart icon (Modern)."
@@ -538,14 +514,6 @@ msgstr "nits"
 msgctxt "#32194"
 msgid "Hidden"
 msgstr "Ausgeblendet"
-
-msgctxt "#32195"
-msgid "Show L5 offsets icon"
-msgstr "L5-Offsets-Symbol anzeigen"
-
-msgctxt "#32196"
-msgid "Show the L5 offsets icon (lrtb) next to the L5 values."
-msgstr "Zeigt das L5-Offsets-Symbol (lrtb) neben den L5-Werten an."
 
 msgctxt "#32197"
 msgid "File name"
@@ -740,28 +708,12 @@ msgid "Custom"
 msgstr "Benutzerdefiniert"
 
 msgctxt "#32251"
-msgid "Separator line"
-msgstr "Trennlinie"
+msgid "Line"
+msgstr "Linie"
 
 msgctxt "#32252"
 msgid "Color of the separator lines."
 msgstr "Farbe der Trennlinien."
-
-msgctxt "#32253"
-msgid "Selection"
-msgstr "Auswahl"
-
-msgctxt "#32254"
-msgid "Background color of the focused button in the VS10 dialog."
-msgstr "Hintergrundfarbe der fokussierten Schaltfläche im VS10-Dialog."
-
-msgctxt "#32255"
-msgid "Selection text"
-msgstr "Auswahltext"
-
-msgctxt "#32256"
-msgid "Text color of the focused button in the VS10 dialog."
-msgstr "Textfarbe der fokussierten Schaltfläche im VS10-Dialog."
 
 msgctxt "#32257"
 msgid "[COLOR=FF000000]●[/COLOR] Black (Default)"
@@ -791,6 +743,14 @@ msgctxt "#32264"
 msgid "Shifts the overlay upwards from its default position. 100% is the maximum shift that keeps the content on screen."
 msgstr "Verschiebt das Overlay von seiner Standardposition aus nach oben. 100% entsprechen der maximalen Verschiebung, bei der der Inhalt auf dem Bildschirm bleibt."
 
+msgctxt "#32269"
+msgid "Global background color"
+msgstr "Globale Hintergrundfarbe"
+
+msgctxt "#32271"
+msgid "Color of the global background behind all overlay elements."
+msgstr "Farbe des globalen Hintergrunds hinter allen Overlay-Elementen."
+
 msgctxt "#32266"
 msgid "Opacity of the overlay background, from 0% (fully transparent) to 100% (fully opaque)."
 msgstr "Deckkraft des Overlay-Hintergrunds, von 0% (vollständig transparent) bis 100% (vollständig deckend)."
@@ -800,68 +760,20 @@ msgid "Transparency"
 msgstr "Transparenz"
 
 msgctxt "#32268"
-msgid "Opacity of the full-screen background behind the overlay, from 0% (off) to 100% (fully opaque)."
-msgstr "Deckkraft des bildschirmfüllenden Hintergrunds hinter dem Overlay, von 0% (aus) bis 100% (vollständig deckend)."
-
-msgctxt "#32269"
-msgid "Global background"
-msgstr "Globaler Hintergrund"
-
-msgctxt "#32271"
-msgid "Color of the full-screen global background."
-msgstr "Farbe des bildschirmfüllenden globalen Hintergrunds."
+msgid "Opacity of the global background, from 0% (fully transparent) to 100% (fully opaque)."
+msgstr "Deckkraft des globalen Hintergrunds, von 0% (vollständig transparent) bis 100% (vollständig deckend)."
 
 msgctxt "#32274"
-msgid "Opacity of this element, from 0% (fully transparent) to 100% (fully opaque)."
-msgstr "Deckkraft dieses Elements, von 0% (vollständig transparent) bis 100% (vollständig deckend)."
-
-msgctxt "#32275"
-msgid "Conversion (yes)"
-msgstr "Umwandlung (Ja)"
-
-msgctxt "#32276"
-msgid "Color of the check-circle icon shown when conversion is active."
-msgstr "Farbe des Häkchen-Symbols bei aktiver Umwandlung."
-
-msgctxt "#32277"
-msgid "Conversion (no)"
-msgstr "Umwandlung (Nein)"
-
-msgctxt "#32278"
-msgid "Color of the cross-circle icon shown when conversion is inactive."
-msgstr "Farbe des Kreuz-Symbols bei inaktiver Umwandlung."
-
-msgctxt "#32279"
-msgid "FEL tag"
-msgstr "FEL-Kennzeichnung"
-
-msgctxt "#32280"
-msgid "Color of the FEL enhancement-layer tag in the output mode."
-msgstr "Farbe der FEL-Enhancement-Layer-Kennzeichnung im Ausgabemodus."
-
-msgctxt "#32281"
-msgid "MEL tag"
-msgstr "MEL-Kennzeichnung"
-
-msgctxt "#32282"
-msgid "Color of the MEL enhancement-layer tag in the output mode."
-msgstr "Farbe der MEL-Enhancement-Layer-Kennzeichnung im Ausgabemodus."
+msgid "Opacity of the element, from 0% (fully transparent) to 100% (fully opaque)."
+msgstr "Deckkraft des Elements, von 0% (vollständig transparent) bis 100% (vollständig deckend)."
 
 msgctxt "#32283"
 msgid "[COLOR=FFEDEDED]●[/COLOR] White"
 msgstr "[COLOR=FFEDEDED]●[/COLOR] Weiß"
 
-msgctxt "#32284"
-msgid "[COLOR=FF81C784]●[/COLOR] Forest (Default)"
-msgstr "[COLOR=FF81C784]●[/COLOR] Waldgrün (Standard)"
-
 msgctxt "#32285"
 msgid "[COLOR=FFFF5252]●[/COLOR] Crimson (Default)"
 msgstr "[COLOR=FFFF5252]●[/COLOR] Karminrot (Standard)"
-
-msgctxt "#32286"
-msgid "[COLOR=FFFFB74D]●[/COLOR] Tangerine (Default)"
-msgstr "[COLOR=FFFFB74D]●[/COLOR] Mandarine (Standard)"
 
 msgctxt "#32287"
 msgid "Decode method"
@@ -870,50 +782,6 @@ msgstr "Dekodiermethode"
 msgctxt "#32288"
 msgid "Media source"
 msgstr "Medienquelle"
-
-msgctxt "#32289"
-msgid "Metadata"
-msgstr "Metadaten"
-
-msgctxt "#32290"
-msgid "Profile"
-msgstr "Profil"
-
-msgctxt "#32291"
-msgid "Level"
-msgstr "Level"
-
-msgctxt "#32292"
-msgid "RPU"
-msgstr "RPU"
-
-msgctxt "#32293"
-msgid "Base Layer"
-msgstr "Base-Layer"
-
-msgctxt "#32294"
-msgid "Enhancement Layer"
-msgstr "Enhancement-Layer"
-
-msgctxt "#32295"
-msgid "Enhancement Layer Type"
-msgstr "Enhancement-Layer-Typ"
-
-msgctxt "#32296"
-msgid "HDR10 MDL"
-msgstr "HDR10 MDL"
-
-msgctxt "#32297"
-msgid "HDR10 MaxCLL/FALL"
-msgstr "HDR10 MaxCLL/FALL"
-
-msgctxt "#32298"
-msgid "RPU MDL"
-msgstr "RPU MDL"
-
-msgctxt "#32299"
-msgid "RPU MaxCLL/FALL"
-msgstr "RPU MaxCLL/FALL"
 
 msgctxt "#32300"
 msgid "HDR Static Metadata"
@@ -1035,42 +903,17 @@ msgctxt "#32335"
 msgid "Overlay content"
 msgstr "Overlay-Inhalt"
 
-msgctxt "#32337"
-msgid "Background color of the VS10 selection dialog panel."
-msgstr "Hintergrundfarbe des VS10-Auswahldialogs."
-
-msgctxt "#32339"
-msgid "Color of the separator lines in the VS10 selection dialog."
-msgstr "Farbe der Trennlinien im VS10-Auswahldialog."
-
-msgctxt "#32341"
-msgid "Color of the chart icon in the VS10 selection dialog."
-msgstr "Farbe des Diagrammsymbols im VS10-Auswahldialog."
-
 msgctxt "#32342"
-msgid "Header title"
-msgstr "Kopfzeilentitel"
-
-msgctxt "#32343"
-msgid "Color of the VS10 header label in the selection dialog."
-msgstr "Farbe der VS10-Kopfzeilenbeschriftung im Auswahldialog."
+msgid "Header"
+msgstr "Kopfzeile"
 
 msgctxt "#32344"
 msgid "Auto-hide"
 msgstr "Automatisch ausblenden"
 
 msgctxt "#32345"
-msgid "Automatically hides the TinyPPI overlay after the selected time (in seconds). 0 = off. Does not apply to the VS10 dialog."
-msgstr "Blendet das TinyPPI-Overlay nach der eingestellten Zeit (in Sekunden) automatisch aus. 0 = Aus. Gilt nicht für den VS10-Dialog."
-
-msgctxt "#32348"
-msgid "Horizontal offset of the channel box"
-msgstr "Horizontaler Versatz der Kanal-Box"
-
-msgctxt "#32349"
-msgid "Moves the channel box in Dolby Vision to the right. 0% places it at the left edge, 100% keeps it in its default position on the right."
-msgstr "Verschiebt die Kanal-Box bei Dolby Vision nach rechts. 0% setzt sie an den linken Rand, 100% belässt sie an ihrer Standardposition rechts."
-
+msgid "Automatically hides the TinyPPI overlay after the selected time (in seconds). 0 = off."
+msgstr ""
 msgctxt "#32350"
 msgid "Channels"
 msgstr "Kanäle"
@@ -1118,6 +961,10 @@ msgstr "Kanäle bei Dolby Vision"
 msgctxt "#32361"
 msgid "Show the channel layout graphic while playing Dolby Vision content."
 msgstr "Zeigt die Kanal-Layout-Grafik bei der Wiedergabe von Dolby-Vision-Inhalten an."
+
+msgctxt "#32364"
+msgid "Channel icon color"
+msgstr "Kanal-Symbolfarbe"
 
 msgctxt "#32362"
 msgid "Live TV"
